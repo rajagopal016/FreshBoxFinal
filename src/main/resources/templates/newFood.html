@@ -1,0 +1,53 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<meta charset="ISO-8859-1">
+<title>FoodBox - Add New Food Item</title>
+</head>
+<body>
+<h1 align="center"><b>FreshBox.com</b></h1>
+	<form  title="New Food" method="POST" action="saveProducts">
+		<fieldset >
+  			<legend align="center">Add New Food Item</legend>
+  				
+				<p align="center">Name: <input required="required" type="text" name="name" /></p>
+				
+				<p align="center"> <label for="category">Category:</label>
+				<select name="category" id="category">			
+				<option value="Breakfast">Breakfast</option>
+				<option value="Lunch">Lunch</option>
+				<option value="Beverage">Beverage</option>
+				<option value="Dessert">Dessert</option>
+				<option value="Snacks">Snacks</option>
+				<option value="Dinner">Dinner</option></select></p>
+				
+				<p align="center">Price: <input required="required" type="number" name="price" /></p>
+				
+    			<p align="center"> <label for="type">Type:</label>
+				<select name="type" id="type">			
+				<option value="Veg">Veg</option>
+				<option value="NV">Non-Veg</option>
+				</select></p>
+				
+				<p align="center"> <label for="cuisine">Cuisine:</label>
+				<select name="cuisine" id="cuisine">			
+					<option th:each="data : ${cuisines}" th:value="${data.cuisine_name}" 
+       				th:text="${data.cuisine_name}"></option>
+				</select></p>
+				
+				<p align="center">Description: <input required="required" type="text" name="description" /></p>
+				
+				<p align="center">Offer Percent: <input required="required" type="number" name="offerpercent" /></p>
+    			
+    			<p align="center"> <label for="type">Available?:</label>
+				<select name="available" id="available">			
+				<option value="Yes">Available</option>
+				<option value="No">Unavailable</option>
+				</select></p>
+				
+				<p align="center"> <input type="submit" value="Submit" /></p>
+		</fieldset>
+	</form>
+</body>
+</html>

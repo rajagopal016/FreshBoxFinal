@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FreshBox.com - Products Database</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+</style>
+
+</head>
+<body>
+
+<h1 align="center">Food Database</h1>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search your food here.." title="Type in a name">
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+<table class="searchable sortable" id="myTable">
+	
+	<tr class="header">
+	<th>Product ID</th>
+	<th>Name</th>
+    <th>Price</th>
+    <th>Category</th>
+    <th>Type</th>
+    <th>Cuisine</th>
+    <th>Description</th>
+    <th>Offers</th>
+    <th>Availability</th>
+    
+  	</tr>
+	<tr th:each="data :${products}">
+		<td> <span th:text= "${data.Product_Id}"></span></td>
+		<td> <span th:text= "${data.Product_Name}"></span></td>
+		<td> <span th:text= "${data.Product_Price}"></span></td>
+		<td> <span th:text= "${data.Product_Category}"></span></td>
+		<td> <span th:text= "${data.Product_Type}"></span></td>
+		<td> <span th:text= "${data.Product_Cuisine}"></span></td>
+		<td> <span th:text= "${data.Product_Description}"></span></td>
+		<td> <span th:text= "${data.Product_Offers}"></span></td>
+		<td> <span th:text= "${data.Product_Availability}"></span></td>
+		<td><form action="editProduct" method="POST">
+			<button name="edit" th:value="${data.Product_Id}">Edit</button>
+		</form></td>
+		<td><form action="deleteProducts" method="POST">
+			<button name="delete" th:value="${data.Product_Id}">Delete</button>
+		</form></td>
+
+		
+	</tr>
+</table>
+<form  title="AddProduct" method="POST" action="addProducts">
+		<p align="center"> <input type="submit" value="Add Product" /></p>
+</form>
+<form  title="adminhome" method="POST" action="adminDashboard">
+		<p align="center"> <input type="submit" value="Goto admin Dashboard" /></p>
+</form>
+
+
+
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+    <style>
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .topnav {
+        margin-top: 1px;
+        overflow: hidden;
+        background-color: #04AA6D; 
+    }
+    .topnav a {
+        float: left left;
+        color: #f2f2f2;
+        text-align: center;
+        vertical-align: middle;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+
+    }
+
+    .topnav a:hover {
+        background-color:beige;
+        color: black;
+    }
+
+    .topnav a.active {
+        background-color: #04AA6D;
+        color: white;
+    }
+    #myTable {
+	  border-collapse: collapse;
+	  width: 100%;
+	  border: 1px solid #ddd;
+	  font-size: 18px;
+	}
+	
+	#myTable th, #myTable td {
+	  text-align: left;
+	  padding: 12px;
+	}
+	
+	#myTable tr {
+	  border-bottom: 1px solid #ddd;
+	}
+	
+	#myTable tr.header, #myTable tr:hover {
+	  background-color: #f1f1f1;
+	}
+	.wrapper {
+    text-align: right;
+    padding-right: 10%;
+	}
+	
+	.button {
+	    position: absolute;
+	    top: 50%;
+	}
+	.foot{
+    text-align: center;
+    vertical-align: bottom;
+    bottom: 0px;
+    width: 100%;
+    padding-top: 25%;
+	}
+	
+
+    </style>
+    <script type="text/javascript">
+    function add() {
+    	document.getElementById('qty').text = document.getElementById('qty').text + 1 
+	} 
+    function subtract() {
+        if (document.getElementById('password').value ==
+                document.getElementById('confirm_password').value) {
+            document.getElementById('submit').disabled = false;
+        } else {
+            document.getElementById('submit').disabled = true;
+        	}
+    	} 
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>FreshBox - Your Hunger Partner!</title>
+        <link rel = "icon" href = "home" type = "image/x-icon">
+        <div class="topnav">
+            <a href="home"><img class="logo_top" src="/icon.png" width="50" height="50"></a>
+            <a href="#">About</a>
+            <a href="#">Customer Support</a>
+        </div>
+    </head>
+    <body>
+    	<h1 align="center">Purchase Summary</h1>
+        
+        <table id="myTable">
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Unit Price</th>
+            <th>Offer</th>
+            <th>Price after Discount</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+            <form action="" method="post">
+            <tr th:each="data :${itemlist}" id="tablerow">
+	            	<td name="id"><span th:text= "${data[0]}"></td>
+	            	<td name="name"><span th:text= "${data[1]}"></span></td>
+	            	<td name="price"><span th:text= "${data[2]}"></span></td>
+	            	<td name="offer"><span th:text= "${data[3]} +'%'"></span></td>
+	            	<td name="priceafterdisc"><span th:text= "${data[4]}"></span></td>
+            		<td name="qty"><form action="addToCart1"  method="POST"><button hidden name="prod_id" th:value="${data[0]}" class="button1">+</button></form><span th:text= "${data[5]}"></td>
+            		<td name="amount"><span th:text= "${data[6]}"></span></td>
+            </tr>
+        </table>
+        <h1 align="right" th:text= "'Total Amount : Rs. ' + ${totalAmount}"></h1>
+        <div class="wrapper">
+        	<form action="proceedToPayment"  method="POST">
+    			<button name="total" th:value="${totalAmount}" class="button">Proceed to Payment</button>
+    		</form>
+		</div>
+       		
+           
+
+    </body>
+    <footer>
+	    <nav class="foot">
+	        <p>www.FreshBox.com</p>
+	        <p>&copy 2022</p>
+	    </nav>
+	</footer>
+</html>

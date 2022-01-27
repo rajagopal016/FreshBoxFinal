@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FreshBox.com - Cuisines Database</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+
+<h1 align="center">Cuisines Database</h1>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search your Cuisine here.." title="Type in a name">
+
+<table id="myTable">
+	
+	<tr class="header">
+	<th>Cuisine ID</th>
+	<th>Name</th>
+
+    
+  	</tr>
+	<tr th:each="data :${cuisines}">
+		<td> <span th:text= "${data.cuisine_id}"></span></td>
+		<td> <span th:text= "${data.cuisine_name}"></span></td>
+		<td><form action="deleteCuisines" method="POST">
+			<button name="delete" th:value="${data.cuisine_id}">Delete</button>
+		</form></td>
+	</tr>
+	
+</table>
+<form  title="AddProduct" method="POST" action="addCuisines">
+		<p align="center"> <input type="submit" value="Add Cuisine" /></p>
+</form>
+<form  title="adminhome" method="POST" action="adminDashboard">
+		<p align="center"> <input type="submit" value="Goto admin Dashboard" /></p>
+</form>
+
+
+
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+</body>
+</html>
